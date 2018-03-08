@@ -8,60 +8,74 @@ using System.IO;
 
 namespace WordTest
 {
-
     class Program
     {
         static void Main(string[] args)
         {
             Random rnd = new Random();
+
             int disablePoint = 0;
             string rememberWord = "";
             int goodanswers = 0;
-            try
-            {  
-                using (StreamReader sr = new StreamReader("words.txt"))
+            int fullGoodAnswers =0;
+            for (int g = 0; g < 5; g++ )
+            {
+                disablePoint = 0;
+                rememberWord = "";
+                fullGoodAnswers += goodanswers;
+                goodanswers = 0;
+                try
                 {
-                    for (int j = 0; j < 20; j++ )
+                    using (StreamReader sr = new StreamReader("words.txt"))
                     {
-                        disablePoint = rnd.Next(0, 3);
-                        for (int i = 0; i < 4; i++)
-                        {
-                           if(i == disablePoint)
-                           {
-                             rememberWord = sr.ReadLine();
-                             Console.WriteLine("--------");
-                           }else
-                           {
-                             Console.WriteLine(sr.ReadLine());
-                           }
-                           
-                        }
 
-                        if (Console.ReadLine().Equals(rememberWord))
+                        for (int j = 0; j < 20; j++)
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Dobrze");
-                            goodanswers++;
+                            disablePoint = rnd.Next(0, 3);
+                            for (int i = 0; i < 4; i++)
+                            {
+                                if (i == disablePoint)
+                                {
+                                    rememberWord = sr.ReadLine();
+                                    Console.WriteLine("--------");
+                                }
+                                else
+                                {
+                                    Console.WriteLine(sr.ReadLine());
+                                }
+
+                            }
+
+                            if (Console.ReadLine().Equals(rememberWord))
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Dobrze");
+                                goodanswers++;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Źle. {0}", rememberWord);
+                            }
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.WriteLine();
                         }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Źle. {0}",rememberWord);
-                        }
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine();
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
-            }
+                catch (Exception e)
+                {
+                    Console.WriteLine("The file could not be read:");
+                    Console.WriteLine(e.Message);
+                }
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Dobrych odpowiedzi było: {0}",goodanswers);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Złych odpowiedzi było: {0}", 20 - goodanswers);
+            Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            }
+            Console.WriteLine("Koniec gry");
+            Console.WriteLine("Wynik: {0} na {1}",fullGoodAnswers, fullGoodAnswers - (5*20));
             Console.ReadLine();
         }
     }
