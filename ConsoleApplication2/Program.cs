@@ -12,71 +12,80 @@ namespace WordTest
     {
         static void Main(string[] args)
         {
-            Random rnd = new Random();
-
-            int disablePoint = 0;
-            string rememberWord = "";
-            int goodanswers = 0;
-            int fullGoodAnswers =0;
-            for (int g = 0; g < 5; g++ )
+            int wordNumber = 0;
+            int askQuestion = 0;
+            var wordsNumber = 0;
+            var turnsNumber = 100;
+            try
             {
-                disablePoint = 0;
-                rememberWord = "";
-                fullGoodAnswers += goodanswers;
-                goodanswers = 0;
-                try
+                var file = new StreamReader("words.txt").ReadToEnd();
+                var lines = file.Split(new char[] { '\n' }); 
+                wordsNumber = (lines.Count() / 4);
+                Console.WriteLine("Wykryto {0} słówek",wordsNumber);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("BŁĄD - Plik posiada niepoprawny format albo brak do niego dostępu: ");
+                throw;
+            }
+            string[] question = new string[wordsNumber];
+            string[] form1 = new string[wordsNumber];
+            string[] form2 = new string[wordsNumber];
+            string[] form3 = new string[wordsNumber];
+            try
+            {
+                using (StreamReader sr = new StreamReader("words.txt"))
                 {
-                    using (StreamReader sr = new StreamReader("words.txt"))
+                    for (int j = 0; j < wordsNumber; j++)
                     {
-
-                        for (int j = 0; j < 20; j++)
-                        {
-                            disablePoint = rnd.Next(0, 3);
-                            for (int i = 0; i < 4; i++)
-                            {
-                                if (i == disablePoint)
-                                {
-                                    rememberWord = sr.ReadLine();
-                                    Console.WriteLine("--------");
-                                }
-                                else
-                                {
-                                    Console.WriteLine(sr.ReadLine());
-                                }
-
-                            }
-
-                            if (Console.ReadLine().Equals(rememberWord))
-                            {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("Dobrze");
-                                goodanswers++;
-                            }
-                            else
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Źle. {0}", rememberWord);
-                            }
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                            Console.WriteLine();
-                        }
+                        form1[j] = sr.ReadLine();
+                        form2[j] = sr.ReadLine();
+                        form3[j] = sr.ReadLine();
+                        question[j] = sr.ReadLine();
                     }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The file could not be read:");
-                    Console.WriteLine(e.Message);
-                }
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Dobrych odpowiedzi było: {0}",goodanswers);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Złych odpowiedzi było: {0}", 20 - goodanswers);
-            Console.ReadLine();
-            Console.ForegroundColor = ConsoleColor.Gray;
             }
-            Console.WriteLine("Koniec gry");
-            Console.WriteLine("Wynik: {0} na {1}",fullGoodAnswers, fullGoodAnswers - (5*20));
-            Console.ReadLine();
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+            Random rnd = new Random();
+            string temp = "";
+            int goodanswers = 0;
+            for (int j = 0; j < turnsNumber; j++)
+            {
+                wordNumber = rnd.Next(0, wordsNumber);
+                askQuestion = rnd.Next(0, 3);
+                Console.Write("{0} forma słówka ", askQuestion+1);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(question[wordNumber]);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine(" to:");
+                if (askQuestion==0)
+                    temp = form1[wordNumber];
+                else
+                    if (askQuestion == 1)
+                    temp = form2[wordNumber];
+                else
+                    temp = form3[wordNumber];
+                if(Console.ReadLine().Equals(temp))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Dobrze");
+                    goodanswers++;
+                }else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Źle");
+                }
+                Console.WriteLine("Słowo to: {0}", temp);
+                Console.ForegroundColor = ConsoleColor.Gray;
+            }
+            Console.WriteLine("Dobrych odpowiedzi: {0} \nZłych odpowiedzi: {1}\nWszystkich odpowiedzi: {2}", goodanswers, turnsNumber - goodanswers, turnsNumber);
+            Console.ReadLine(); 
         }
     }
 }
+
+

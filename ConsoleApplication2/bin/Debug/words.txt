@@ -55,8 +55,8 @@ drew
 drawn
 rysować, pociągnąć, remisować
 dream
-dreamed, dreamt
-dreamed, dreamt
+dreamed
+dreamed
 śnić, marzyć
 drink
 drank
@@ -78,3 +78,83 @@ feel
 felt
 felt
 czuć
+find
+found
+found
+znaleźć
+fly
+flew
+flown
+latać
+get
+got
+got
+dostawać
+give
+gave
+given
+dawać
+go
+went
+gone
+iść
+grow
+grew
+grown
+rosnąć
+have
+had
+had
+mieć
+hear
+heard
+heard
+słyszeć
+hit
+hit
+hit
+uderzać
+hold
+held
+held
+trzymać, utrzymywać, posiadać
+hurt
+hurt
+hurt
+ranić, boleć
+keep
+kept
+kept
+trzymać
+know
+knew
+known
+znać, wiedzieć
+learn
+learnt, learned
+learnt, learned
+uczyć się
+leave
+left
+left
+opuszczać, wyjeżdżać, zostawiać
+lend
+lent
+lent
+pożyczać
+lose
+lost
+lost
+tracić, zgubić
+make
+made
+made
+robić, wykonywać
+mean
+meant
+meant
+znaczyć, oznaczać; mieć na myśli
+meet
+met
+met
+spotykać, poznać
